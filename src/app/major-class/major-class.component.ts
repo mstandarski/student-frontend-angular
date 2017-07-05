@@ -16,31 +16,32 @@ import {
 } from '../delete-confirm/delete-confirm.component'
 
 @Component({
-  selector: 'app-student',
-  templateUrl: './student.component.html',
-  styleUrls: ['./student.component.css'],
+  selector: 'app-major-class',
+  templateUrl: './major-class.component.html',
+  styleUrls: ['./major-class.component.css']
 })
-export class StudentComponent implements OnInit {
+export class MajorClassComponent implements OnInit {
 
   errorMessage: string;
   successMessage: string;
-  students: any[];
+  majors_classes: any[];
   majors: any[]; // -- needed to lookup the major
+  classes: any[]; // -- needed to lookup the class
   mode = 'Observable';
 
   constructor(private dataService: DataService, public dialog: MdDialog) {}
 
   ngOnInit() {
-    this.getStudents();
+    this.getMajorsClasses();
     this.getMajors();
+    this.getClasses();
   }
 
-  getStudents() {
-    this.dataService.getRecords('student')
+  getMajorsClasses() {
+    this.dataService.getRecords('major_class')
       .subscribe(
-        students => this.students = students,
+        majors_classes => this.majors_classes = majors_classes,
         error => this.errorMessage = < any > error);
-
   }
 
   getMajors() {
@@ -50,17 +51,24 @@ export class StudentComponent implements OnInit {
         error => this.errorMessage = < any > error);
   }
 
-  deleteStudent(id: number) {
+  getClasses() {
+    this.dataService.getRecords('class')
+      .subscribe(
+        classes => this.classes = classes,
+        error => this.errorMessage = < any > error);
+  }
+
+  deleteMajorClass(id: number) {
 
     const dialogRef = this.dialog.open(DeleteConfirmComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.dataService.deleteRecord('student', id)
+        this.dataService.deleteRecord('major_class', id)
           .subscribe(
-            student => {
+            major_class => {
               this.successMessage = 'Record(s) deleted succesfully';
-              this.getStudents();
+              this.getMajorsClasses();
             },
             error => this.errorMessage = < any > error);
       }

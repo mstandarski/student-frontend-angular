@@ -6,23 +6,23 @@ import { Location }               from '@angular/common';
 import { DataService } from '../data.service'
 
 @Component({
-  selector: 'app-student-form',
-  templateUrl: './student-form.component.html',
-  styleUrls: ['./student-form.component.css']
+  selector: 'app-instructor-form',
+  templateUrl: './instructor-form.component.html',
+  styleUrls: ['./instructor-form.component.css']
 })
-export class StudentFormComponent implements OnInit {
+export class InstructorFormComponent implements OnInit {
 
   successMessage: string;
   errorMessage: string;
 
-  student: object = {};
+  instructor: object = {};
 
   majors: any[]; // -- needed to lookup the majors
 
   getRecordForEdit() {
     this.route.params
-      .switchMap((params: Params) => this.dataService.getRecord('student', +params['id']))
-      .subscribe(student => this.student = student);
+      .switchMap((params: Params) => this.dataService.getRecord('instructor', +params['id']))
+      .subscribe(instructor => this.instructor = instructor);
   }
 
   constructor(
@@ -46,20 +46,20 @@ export class StudentFormComponent implements OnInit {
     this.getMajors(); // -- getting majors for the select drop down
   }
 
-  saveStudent(id) {
+  saveInstructor(id) {
     if (typeof id === 'number') {
-      this.dataService.editRecord('student', this.student, id)
+      this.dataService.editRecord('instructor', this.instructor, id)
           .subscribe(
-            student => this.successMessage = 'Record updated succesfully',
+            instructor => this.successMessage = 'Record updated succesfully',
             error =>  this.errorMessage = <any>error);
     }else {
-      this.dataService.addRecord('student', this.student)
+      this.dataService.addRecord('instructor', this.instructor)
           .subscribe(
-            student => this.successMessage = 'Record added succesfully',
+            instructor => this.successMessage = 'Record added succesfully',
             error =>  this.errorMessage = <any>error);
     }
 
-    this.student = {};
+    this.instructor = {};
 
   }
 
