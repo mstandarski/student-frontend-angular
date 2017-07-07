@@ -5,11 +5,15 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/expand';
+import 'rxjs/add/observable/empty';
 
 @Injectable()
 export class DataService {
 
     private baseUrl = 'http://localhost:1337/'
+
+    found = false;
 
     constructor (private http: Http) {}
 

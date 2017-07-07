@@ -1,13 +1,31 @@
-import { Component, OnInit,Input } from '@angular/core';
-import { MdDialog, MdDialogRef } from '@angular/material';
+import {
+  Component,
+  OnInit,
+  Input
+} from '@angular/core';
+import {
+  MdDialog,
+  MdDialogRef
+} from '@angular/material';
 
-import { DataService } from '../data.service'
-import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component'
+import {
+  DataService
+} from '../data.service'
+import {
+  DeleteConfirmComponent
+} from '../delete-confirm/delete-confirm.component'
 
+import {
+  fadeInAnimation
+} from '../animations/fade-in.animation';
 @Component({
   selector: 'app-student-class',
   templateUrl: './student-class.component.html',
   styleUrls: ['./student-class.component.css'],
+  animations: [fadeInAnimation],
+  host: {
+    '[@fadeInAnimation': ''
+  }
 })
 export class StudentClassComponent implements OnInit {
 
@@ -18,49 +36,56 @@ export class StudentClassComponent implements OnInit {
   classes: any[];
 
   mode = 'Observable';
- 
-  constructor (private dataService: DataService, public dialog: MdDialog) {}
- 
-  ngOnInit() { 
+
+  constructor(private dataService: DataService, public dialog: MdDialog) {}
+
+  ngOnInit() {
     this.getStudentClasses();
     this.getStudents();
     this.getClasses();
-   }
- 
+    // -- turn the footer on, if off
+    let div = document.getElementById('the-footer');
+    if (div.style.display == 'none') {
+      div.style.display = 'block';
+    }
+  }
+
   getStudentClasses() {
-    this.dataService.getRecords("student_class")
+    this.dataService.getRecords('student_class')
       .subscribe(
         student_classes => this.student_classes = student_classes,
-        error =>  this.errorMessage = <any>error);
+        error => this.errorMessage = < any > error);
   }
 
   getStudents() {
-    this.dataService.getRecords("student")
+    this.dataService.getRecords('student')
       .subscribe(
         students => this.students = students,
-        error =>  this.errorMessage = <any>error);
+        error => this.errorMessage = < any > error);
   }
 
   getClasses() {
-    this.dataService.getRecords("class")
+    this.dataService.getRecords('class')
       .subscribe(
         classes => this.classes = classes,
-        error =>  this.errorMessage = <any>error);
+        error => this.errorMessage = < any > error);
   }
 
-  deleteStudentClass(id:number) {
+  deleteStudentClass(id: number) {
 
     let dialogRef = this.dialog.open(DeleteConfirmComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this.dataService.deleteRecord("student_class", id)
+      if (result) {
+        this.dataService.deleteRecord('student_class', id)
           .subscribe(
-            student_class => {this.successMessage = "Record(s) deleted succesfully"; this.getStudentClasses(); },
-            error =>  this.errorMessage = <any>error);
+            student_class => {
+              this.successMessage = 'Record(s) deleted succesfully';
+              this.getStudentClasses();
+            },
+            error => this.errorMessage = < any > error);
       }
     });
   }
 
 }
-

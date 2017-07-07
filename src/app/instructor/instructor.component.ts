@@ -4,10 +4,13 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 import { DataService } from '../data.service'
 import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component'
 
+import {fadeInAnimation } from '../animations/fade-in.animation';
+
 @Component({
   selector: 'app-instructor',
   templateUrl: './instructor.component.html',
-  styleUrls: ['./instructor.component.css']
+  styleUrls: ['./instructor.component.css'],
+  animations: [fadeInAnimation],
 })
 
 
@@ -24,6 +27,11 @@ export class InstructorComponent implements OnInit {
   ngOnInit() {
     this.getInstructors();
     this.getMajors();
+     // -- turn the footer on, if off
+    let div = document.getElementById('the-footer');
+    if (div.style.display == 'none') {
+      div.style.display = 'block';
+    }
   }
 
   getInstructors() {

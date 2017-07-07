@@ -66,8 +66,6 @@ import {
   HomeComponent
 } from '../home/home.component';
 
-
-
 const routes: Routes = [{
     path: '',
     redirectTo: '/home',
@@ -77,7 +75,6 @@ const routes: Routes = [{
     path: 'home',
     component: HomeComponent
   },
-
   {
     path: 'student',
     component: StudentComponent
@@ -90,7 +87,6 @@ const routes: Routes = [{
     path: 'student/add',
     component: StudentFormComponent
   },
-
   {
     path: 'assignment',
     component: AssignmentComponent
@@ -103,7 +99,6 @@ const routes: Routes = [{
     path: 'assignment/add',
     component: AssignmentFormComponent
   },
-
   {
     path: 'class',
     component: ClassComponent
@@ -129,7 +124,6 @@ const routes: Routes = [{
     path: 'grade/add',
     component: GradeFormComponent
   },
-
   {
     path: 'instructor',
     component: InstructorComponent
@@ -142,7 +136,6 @@ const routes: Routes = [{
     path: 'instructor/add',
     component: InstructorFormComponent
   },
-
   {
     path: 'major',
     component: MajorComponent
@@ -155,7 +148,6 @@ const routes: Routes = [{
     path: 'major/add',
     component: MajorFormComponent
   },
-
   {
     path: 'major_class',
     component: MajorClassComponent
@@ -168,7 +160,6 @@ const routes: Routes = [{
     path: 'major_class/add',
     component: MajorClassFormComponent
   },
-
   {
     path: 'student_class',
     component: StudentClassComponent

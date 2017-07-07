@@ -15,10 +15,18 @@ import {
   DeleteConfirmComponent
 } from '../delete-confirm/delete-confirm.component'
 
+import {
+  fadeInAnimation
+} from '../animations/fade-in.animation';
+
 @Component({
   selector: 'app-major-class',
   templateUrl: './major-class.component.html',
-  styleUrls: ['./major-class.component.css']
+  styleUrls: ['./major-class.component.css'],
+  animations: [fadeInAnimation],
+  host: {
+    '[@fadeInAnimation': ''
+  }
 })
 export class MajorClassComponent implements OnInit {
 
@@ -35,6 +43,11 @@ export class MajorClassComponent implements OnInit {
     this.getMajorsClasses();
     this.getMajors();
     this.getClasses();
+    // -- turn the footer on, if off
+    let div = document.getElementById('the-footer');
+    if (div.style.display == 'none') {
+      div.style.display = 'block';
+    }
   }
 
   getMajorsClasses() {
@@ -60,7 +73,7 @@ export class MajorClassComponent implements OnInit {
 
   deleteMajorClass(id: number) {
 
-    const dialogRef = this.dialog.open(DeleteConfirmComponent);
+    let dialogRef = this.dialog.open(DeleteConfirmComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

@@ -1,16 +1,37 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit }      from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Location }               from '@angular/common';
+import {
+  Component,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Params
+} from '@angular/router';
+import {
+  Location
+} from '@angular/common';
+import {
+  NgForm
+} from '@angular/forms';
+import {
+  DataService
+} from '../data.service';
+import {
+  slideInAnimation,
+} from '../animations/slide-in.animation';
 
-import { DataService } from '../data.service'
 @Component({
   selector: 'app-major-class-form',
   templateUrl: './major-class-form.component.html',
-  styleUrls: ['./major-class-form.component.css']
+  styleUrls: ['./major-class-form.component.css'],
+  animations: [slideInAnimation],
+  host: { '[@slideInAnimation]': '' }
 })
 export class MajorClassFormComponent implements OnInit {
 
+majorClassForm: NgForm;
+@ViewChild('majorClassForm') currentForm: NgForm;
   successMessage: string;
   errorMessage: string;
 
@@ -19,9 +40,9 @@ export class MajorClassFormComponent implements OnInit {
   majors: any[]; // -- needed to lookup the majors
   classes: any[]; // -- needed to lookup the classes
 
-  getRecordForEdit(){
+  getRecordForEdit() {
     this.route.params
-      .switchMap((params: Params) => this.dataService.getRecord("major_class", +params['id']))
+      .switchMap((params: Params) => this.dataService.getRecord('major_class', +params['id']))
       .subscribe(major_class => this.major_class = major_class);
   }
 
@@ -48,28 +69,31 @@ export class MajorClassFormComponent implements OnInit {
   ngOnInit() {
     this.route.params
       .subscribe((params: Params) => {
-        (+params['id']) ? this.getRecordForEdit() : null;
+        (+params['id']) ? this.getRecordForEdit(): null;
       });
+
+    // -- turn the footer off
+    let div = document.getElementById('the-footer');
+    if (div.style.display !== 'none') {
+        div.style.display = 'none';
+    }
+
     this.getMajors(); // -- getting majors for the select drop down
     this.getClasses(); // -- getting clases for the select drop down
   }
 
-  saveMajorClass(id){
-    console.log('saveMajorClass = ' + id);
-    if(typeof id === "number"){
-      this.dataService.editRecord("major_class", this.major_class, id)
-          .subscribe(
-            major_class => this.successMessage = "Record updated succesfully",
-            error =>  this.errorMessage = <any>error);
-    }else{
-      this.dataService.addRecord("major_class", this.major_class)
-          .subscribe(
-            major_class => this.successMessage = "Record added succesfully",
-            error =>  this.errorMessage = <any>error);
+  saveMajorClass(id) {
+    if (typeof id === 'number') {
+      this.dataService.editRecord('major_class', this.major_class, id)
+        .subscribe(
+          major_class => this.successMessage = 'Record updated succesfully',
+          error => this.errorMessage = < any > error);
+    } else {
+      this.dataService.addRecord('major_class', this.major_class)
+        .subscribe(
+          major_class => this.successMessage = 'Record added succesfully',
+          error => this.errorMessage = < any > error);
     }
-
-    this.major_class = {};
-    
   }
 
 }

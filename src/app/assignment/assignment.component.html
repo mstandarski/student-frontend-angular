@@ -1,4 +1,6 @@
-<ol class="breadcrumb">
+<section @fadeInAnimation>
+  
+  <ol class="breadcrumb">
     <li><a routerLink="/home">Home</a></li>
     <li class="active">Assignments</li>
 </ol>
@@ -31,8 +33,6 @@
     <tr *ngFor="let assignment of assignments">
       <td>{{assignment.assignment_id}}</td>
 
-      <!--<td>{{assignment.student_id}}</td>-->
-
       <ng-container *ngIf="assignment.student_id; else potato">
         <ng-container *ngFor="let student of students">
           <ng-container *ngIf="assignment.student_id == student.student_id">
@@ -47,8 +47,6 @@
       </ng-template>
 
       <td>{{assignment.assignment_nbr}}</td>
-
-      <!--<td>{{assignment.grade_id}}</td>-->
       
       <ng-container *ngIf="assignment.grade_id; else potato">
         <ng-container *ngFor="let grade of grades">
@@ -62,8 +60,6 @@
       <ng-template #potato>
         <td></td>
       </ng-template>
-
-      <!--<td>{{assignment.class_id}}</td>-->
 
       <ng-container *ngIf="assignment.class_id; else potato">
         <ng-container *ngFor="let class of classes">
@@ -82,6 +78,8 @@
         <a class="btn btn-primary" [routerLink]="['/assignment/edit/', assignment.assignment_id]">Edit</a>&nbsp;
         <button (click)="deleteAssignment(assignment.assignment_id)" class="btn btn-danger">Delete</button>
       </td>
+
     </tr>
   </tbody>
 </table>
+</section>

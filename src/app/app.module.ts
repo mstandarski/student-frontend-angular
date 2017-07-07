@@ -86,7 +86,7 @@ import {
 import {
   StudentClassFormComponent
 } from './student-class-form/student-class-form.component';
-
+import { StatusMessageComponent } from './status-message/status-message.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -108,7 +108,8 @@ import {
     InstructorFormComponent,
     MajorFormComponent,
     MajorClassFormComponent,
-    StudentClassFormComponent
+    StudentClassFormComponent,
+    StatusMessageComponent
   ],
   imports: [
     BrowserModule,

@@ -38,13 +38,12 @@ table {
   background-color: #A7A9AB;
 }
 
-h2 {
+h2, ul {
   color: white;
 }
 
 th,
-td,
-li {
+td {
   color: black;
   text-align: left;
 }
@@ -85,4 +84,10 @@ li {
   .container-fluid {
     max-width: 1024px;
   }
+}
+
+.text-danger {
+  background-color: white;
+  border-radius: 5px;
+  padding: 2px;
 }
